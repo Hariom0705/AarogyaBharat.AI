@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AarogyaBharat.AI - Intelligent Healthcare Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/portal/static/style.css">
+</head>
+<body>
+    <div class="glow-container">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <header class="app-header">
+        <div class="header-brand">
+            <span class="brand-logo">🩺</span>
+            <div class="brand-text">
+                <h1>AarogyaBharat.AI</h1>
+                <p class="tagline">One Patient. One Health ID. Intelligent Healthcare for Every Indian.</p>
+            </div>
+        </div>
+        <div class="patient-badge">
+            <span class="badge-label">HEALTH ID</span>
+            <span class="badge-value" id="health-id-display">HB-1234</span>
+        </div>
+    </header>
+
+    <main class="portal-grid">
+        <!-- Left Panel: Patient Dashboard -->
+        <section class="dashboard-panel glass-card">
+            <div class="patient-profile">
+                <div class="profile-avatar">RD</div>
+                <div class="profile-info">
+                    <h2>Ramesh Dev</h2>
+                    <p>Age: 35 | Gender: Male | Blood: O+</p>
+                </div>
+            </div>
+
+            <!-- Tabs/Navigation inside Dashboard -->
+            <div class="dashboard-sections">
+                <!-- Timeline Section -->
+                <div class="dashboard-section">
+                    <h3>⏳ Lifelong Health Timeline</h3>
+                    <div class="timeline-container">
+                        <div class="timeline-item completed">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">2026-06-01</span>
+                                <h4>Common Cold (Prescription)</h4>
+                                <p>Dr. Rajesh Kumar | Amoxicillin 500mg, Paracetamol 650mg</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item completed">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">2026-05-15</span>
+                                <h4>Routine Blood Test (Lab Report)</h4>
+                                <p>Dr. Rajesh Kumar | CBC counts normal. Hemoglobin: 14.2 g/dL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medications & Vaccinations grid -->
+                <div class="sub-grid">
+                    <div class="dashboard-section card-inner">
+                        <h3>💊 Medication Reminders</h3>
+                        <ul class="medication-list">
+                            <li>
+                                <span class="med-icon">💊</span>
+                                <div class="med-details">
+                                    <strong>Paracetamol 650mg</strong>
+                                    <span>3 times a day (After meals)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="med-icon">💊</span>
+                                <div class="med-details">
+                                    <strong>Atorvastatin 10mg</strong>
+                                    <span>Once daily (At night)</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="dashboard-section card-inner">
+                        <h3>💉 Vaccinations</h3>
+                        <ul class="vaccination-list">
+                            <li class="completed">
+                                <span class="vac-status">✓</span>
+                                <div class="vac-details">
+                                    <strong>COVID-19 Booster</strong>
+                                    <span>Status: Completed</span>
+                                </div>
+                            </li>
+                            <li class="due">
+                                <span class="vac-status">!</span>
+                                <div class="vac-details">
+                                    <strong>Influenza vaccine</strong>
+                                    <span>Status: Due (Annual)</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Panel: Live AI Coordinator Chat -->
+        <section class="chat-panel glass-card">
+            <div class="chat-header">
+                <h3>💬 Live AI Health Coordinator</h3>
+                <span class="status-indicator online">Online</span>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-bubble bot-message">
+                    <p>Namaste! I am your AarogyaBharat AI Health Coordinator. How can I help you today? You can report symptoms, request specialist matching, book appointments, or view your medical reports.</p>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type your query here (e.g. I have fever, book doctor Rajesh)..." autocomplete="off">
+                <button id="chat-send" class="btn-send">Send</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Interactive Doctor Booking Popup (Glassmorphic Modal) -->
+    <div class="booking-modal-overlay" id="booking-modal">
+        <div class="booking-modal glass-card">
+            <div class="modal-header">
+                <h2>📅 Book Doctor Appointment</h2>
+                <button class="btn-close" id="btn-close-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="selected-doctor-card">
+                    <span class="doctor-avatar">👨‍⚕️</span>
+                    <div class="doctor-meta">
+                        <h4 id="modal-doctor-name">Dr. Rajesh Kumar</h4>
+                        <p id="modal-doctor-specialty">General Medicine - AIIMS Delhi</p>
+                        <p id="modal-doctor-availability">Mon-Fri 9AM-1PM</p>
+                    </div>
+                </div>
+
+                <form id="booking-form" class="booking-form">
+                    <div class="form-group">
+                        <label for="booking-patient-id">Patient Health ID</label>
+                        <input type="text" id="booking-patient-id" value="HB-1234" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="booking-date">Appointment Date</label>
+                        <input type="date" id="booking-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="booking-time">Time Slot</label>
+                        <select id="booking-time" required>
+                            <option value="">Select Time Slot</option>
+                            <option value="09:30 AM">09:30 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="10:30 AM">10:30 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="11:30 AM">11:30 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="12:30 PM">12:30 PM</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-confirm" id="btn-submit-booking">Confirm Appointment</button>
+                </form>
+
+                <div class="booking-result" id="booking-result" style="display: none;">
+                    <div class="success-checkmark">
+                        <div class="check-icon">
+                            <span class="icon-line line-tip"></span>
+                            <span class="icon-line line-long"></span>
+                            <div class="icon-circle"></div>
+                            <div class="icon-fix"></div>
+                        </div>
+                    </div>
+                    <h3>Appointment Booked Successfully!</h3>
+                    <p id="booking-result-id">Appointment ID: APT-1234</p>
+                    <p id="booking-result-details">Confirmed with Dr. Rajesh Kumar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/portal/static/script.js"></script>
+</body>
+</html>

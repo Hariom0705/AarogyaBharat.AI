@@ -1,0 +1,60 @@
+# AarogyaBharat.AI - 3 Minute Demo Walkthrough
+
+**Goal:** Demonstrate the seamless multi-agent routing, security checkpointing, and tool usage of the ADK-based AarogyaBharat.AI system.
+
+---
+
+### [0:00 - 0:30] Introduction & Setup
+**Presenter:**
+"Welcome to the demonstration of AarogyaBharat.AI, an intelligent, multi-agent healthcare coordination platform built with Google's Agent Development Kit (ADK)."
+
+*Action: Screen shows the GitHub repository with the glowing AI banner and architecture diagram.*
+
+"The system acts as a smart hospital reception, automatically triaging patient queries, detecting emergencies, managing appointments, and securing PII data before hitting the LLMs. Let's see it in action!"
+
+---
+
+### [0:30 - 1:15] Scenario 1: Security & Triage
+**Presenter:** 
+"First, let's look at how the Coordinator agent handles complex routing and data privacy. I'll pass a prompt containing an Aadhar ID and a symptom complaint."
+
+*Action: Open the ADK web playground or CLI and run:*
+`"My Aadhar number is 1234-5678-9012. I have a severe headache and blurry vision since morning."`
+
+**Presenter:** 
+"Notice two things here:
+1. Our **Security Checkpoint** immediately intercepted the message and redacted the Aadhar ID (PII scrubbing) before passing it to the language model.
+2. The **Coordinator Agent** correctly identified the intent, routed the query to the **Symptom Agent** for initial triage, and then passed those findings directly to the **Doctor Agent**, which used our SQLite MCP tools to fetch matching Neurologists and Ophthalmologists nearby."
+
+---
+
+### [1:15 - 2:00] Scenario 2: Action-Oriented (Booking)
+**Presenter:**
+"Now that we found a doctor, let's book an appointment. Watch how the agents seamlessly use external databases to take action."
+
+*Action: Run the prompt:*
+`"Book an appointment with Dr. Sharma for tomorrow morning at 10 AM."`
+
+**Presenter:**
+"The Coordinator routes this to the **Appointment Agent**. The agent uses the `book_appointment_slot` MCP tool, updates the SQLite database, and returns a verified confirmation ID with the exact time slot."
+
+---
+
+### [2:00 - 2:45] Scenario 3: Emergency Interception
+**Presenter:**
+"One of the most critical features in healthcare AI is recognizing when human intervention is required immediately. Let's see how our system handles acute scenarios."
+
+*Action: Run the prompt:*
+`"I am having severe chest pain and cannot breathe properly!"`
+
+**Presenter:**
+"Instead of offering a casual chat response, the Coordinator instantly routed this to the **Emergency Response Agent**. 
+It triggered a high-priority alert, bypasses standard conversational limits, and immediately provides first-aid instructions along with the nearest critical care facilities."
+
+---
+
+### [2:45 - 3:00] Conclusion
+**Presenter:**
+"This demonstrates the power of ADK's multi-agent workflows—combining security nodes, intelligent routing, specialized agents, and structured tool access via MCP into a single, cohesive medical assistant. 
+
+Thank you for watching the AarogyaBharat.AI demo!"
